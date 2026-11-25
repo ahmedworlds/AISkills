@@ -1,0 +1,394 @@
+MIT License
+
+Copyright (c) 2026 Rescue Lite contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+6. docs/getting-started.md
+Save in the docs folder.
+
+markdown
+
+# Getting Started with Rescue Lite
+
+## What is Rescue?
+
+Rescue Lite is a lightweight AI conversation memory and recovery Skill.
+
+It helps maintain the user's latest confirmed objectives, reduce unnecessary memory and recover conversations that have lost direction.
+
+## Requirements
+
+You need:
+
+- An AI assistant that accepts custom instructions or Markdown instructions.
+- The Rescue SKILL.md file.
+- The Rescue MEMORY.md file.
+
+No API keys, databases, servers or paid subscriptions are required.
+
+## Step 1 — Install the Skill
+
+Download SKILL.md from the Rescue Lite repository.
+
+Open your AI assistant's custom instructions or Skill configuration.
+
+Add the contents of SKILL.md using the installation method supported by that platform.
+
+The exact installation process varies between assistants.
+
+## Step 2 — Provide Persistent Memory
+
+Download MEMORY.md.
+
+Attach it to your conversation or provide its contents to your assistant.
+
+Keep the file available whenever you start a new conversation.
+
+## Step 3 — Initialize Rescue
+
+Enter:
+
+```text
+Initialize Rescue for my project.
+```
+
+The assistant should:
+
+1. Check whether memory is available.
+2. Identify the project objective.
+3. Identify important constraints.
+4. Distinguish confirmed decisions from suggestions.
+5. Prepare an initial memory proposal when necessary.
+
+## Step 4 — Use the Commands
+
+### ALIGN
+
+```text
+Rescue Align
+```
+
+Use when the conversation loses direction or the assistant forgets important requirements.
+
+### OPTIMIZE
+
+```text
+Rescue Optimize
+```
+
+Use when memory becomes repetitive or outdated.
+
+Review the proposed replacement before applying it.
+
+### RECOVER
+
+```text
+Rescue Recover
+```
+
+Use when responses become contradictory or the conversation needs to move to a fresh session.
+
+Review the continuation prompt before using it.
+
+## Step 5 — Maintain Your Memory
+
+After important milestones, ask Rescue to prepare a memory update.
+
+Review the proposed content.
+
+Only replace MEMORY.md after approving the complete update.
+
+Keep a backup of the previous version.
+
+## Starting a New Conversation
+
+1. Open a new conversation.
+2. Provide SKILL.md instructions.
+3. Provide your latest MEMORY.md.
+4. Ask the assistant to resume the project.
+5. Use Rescue Align if necessary.
+
+## Important Limitations
+
+Rescue does not automatically access previous conversations.
+
+It cannot restore messages that are no longer available.
+
+It does not guarantee factual accuracy.
+
+The user remains in control of persistent memory.
+7. docs/examples.md
+Save in the docs folder.
+
+markdown
+
+# Rescue Lite — Testing Examples
+
+These scenarios are designed for manual testing.
+
+Use the same SKILL.md instructions for every test.
+
+Record actual results. Do not mark tests as passed without performing them.
+
+---
+
+## Test 1 — New Project Initialization
+
+Input:
+
+```text
+Initialize Rescue.
+
+My objective is to build a personal budgeting application.
+I have no programming experience.
+I want a free solution.
+```
+
+Expected behaviour:
+
+- Recognizes the budgeting application as the objective.
+- Records the user's stated experience and constraints.
+- Does not invent additional requirements.
+- Distinguishes confirmed information from suggestions.
+- Proposes an initial memory.
+
+Pass condition:
+
+The initial memory accurately represents the information supplied.
+
+---
+
+## Test 2 — Updated User Objective
+
+Initial objective:
+
+```text
+Build a personal budgeting application.
+```
+
+New user instruction:
+
+```text
+I have changed my objective.
+I now want to build a simple expense tracking website instead.
+This is my confirmed new objective.
+```
+
+Expected behaviour:
+
+- Recognizes the new confirmed objective.
+- Gives priority to the new objective.
+- Preserves useful historical context.
+- Does not continue treating the previous objective as current.
+
+Pass condition:
+
+The new objective is identified as current and the previous one as superseded.
+
+---
+
+## Test 3 — Temporary Suggestions
+
+Input:
+
+```text
+I might eventually add a mobile application.
+For now, I only want a website.
+```
+
+Expected behaviour:
+
+- Treats the mobile application as a temporary suggestion.
+- Keeps the website as the current confirmed scope.
+- Does not silently add mobile development to the requirements.
+
+Pass condition:
+
+The temporary suggestion is not recorded as a confirmed decision.
+
+---
+
+## Test 4 — Conversation Drift
+
+Input:
+
+```text
+Rescue Align.
+
+My confirmed objective is to build a free expense tracking website.
+The conversation has moved into discussions about paid mobile applications.
+```
+
+Expected behaviour:
+
+- Identifies the drift.
+- Restates the confirmed objective.
+- Reminds the assistant of the free requirement.
+- Recommends returning to website development.
+
+Pass condition:
+
+The response restores the original confirmed scope.
+
+---
+
+## Test 5 — Memory Optimization
+
+Initial memory contains:
+
+- The current objective.
+- Important user preferences.
+- Confirmed technical decisions.
+- Repeated explanations.
+- An outdated suggestion.
+- Completed tasks.
+- The next task.
+
+Input:
+
+```text
+Rescue Optimize
+```
+
+Expected behaviour:
+
+- Identifies duplicate information.
+- Preserves important decisions.
+- Preserves completed work.
+- Retains the current objective and next step.
+- Prepares a complete replacement proposal.
+- Requests approval.
+
+Pass condition:
+
+No important confirmed information is lost in the proposal.
+
+---
+
+## Test 6 — Reject Memory Replacement
+
+Input after receiving an optimization proposal:
+
+```text
+REJECT.
+
+Keep my original MEMORY.md unchanged.
+```
+
+Expected behaviour:
+
+- Acknowledges rejection.
+- Does not treat the proposed version as authoritative.
+- Does not claim the original file was replaced.
+
+Pass condition:
+
+The original remains the authoritative memory.
+
+---
+
+## Test 7 — Contradictory AI Responses
+
+Conversation contains:
+
+Response A:
+
+```text
+The website will use free static hosting.
+```
+
+Response B:
+
+```text
+The project requires a paid backend server.
+```
+
+User input:
+
+```text
+Rescue Recover
+```
+
+Expected behaviour:
+
+- Identifies the contradiction.
+- Separates the original confirmed requirement from the conflicting claim.
+- Does not invent an explanation.
+- Identifies what remains reliable.
+- Recommends a logical continuation.
+
+Pass condition:
+
+The contradiction is clearly identified and not silently accepted.
+
+---
+
+## Test 8 — Fresh Conversation Recovery
+
+Input:
+
+```text
+Rescue Recover.
+
+Prepare a continuation prompt so I can continue this project
+in a new conversation without losing important decisions.
+```
+
+Expected behaviour:
+
+The continuation prompt contains:
+
+- Project objective.
+- Current confirmed requirements.
+- User preferences.
+- Important decisions.
+- Constraints.
+- Completed work.
+- Current task.
+- Next step.
+- Unresolved questions.
+
+It does not contain invented facts.
+
+It requests user approval before finalizing the recovery.
+
+Pass condition:
+
+The prompt is self-contained and useful in a new conversation.
+
+---
+
+## Test Record
+
+For each scenario record:
+
+| Test | Result |
+|---|---|
+| 1. Initialization | Not tested |
+| 2. Objective change | Not tested |
+| 3. Temporary suggestions | Not tested |
+| 4. Conversation alignment | Not tested |
+| 5. Memory optimization | Not tested |
+| 6. Memory rejection | Not tested |
+| 7. Contradiction recovery | Not tested |
+| 8. Continuation prompt | Not tested |
+
+Testing is manual.
+
+A successful response should satisfy the stated pass condition.
