@@ -11,14 +11,14 @@
 A curated collection of **practical, composable AI skills** — each one self-contained, documented, and ready to plug into your workflow. No bloat. No black boxes.
 
 ## Structure
-
-skills/
-├── skill-name/
+```text
+AiSkills/
+├── rescueai/
 │ ├── skill.md # What it does + when to use it
 │ ├── prompt.md # The actual prompt / system instruction
 │ └── example.md # Input → Output demo
 └── ...
-
+```
 
 ## Quick Start
 
